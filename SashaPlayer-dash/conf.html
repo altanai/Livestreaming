@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <title>Streaming Wowza to DASH</title>
+        <script src="shaka-player.compiled.js"></script>
+
+        <style>
+body{
+
+
+background: #00c6ff; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #00c6ff , #0072ff); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #00c6ff , #0072ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+}
+
+video{
+      width: 400px;
+    height: 400px;
+}
+        </style>
+  </head>
+  <body>
+
+   <video id="video1" 
+       crossorigin="anonymous" 
+       controls>
+    Your browser doesn't support HTML5 video.
+  </video>
+  
+  <video id="video2" 
+       crossorigin="anonymous" 
+       controls>
+    Your browser doesn't support HTML5 video.
+  </video>
+
+  <video id="video3"
+       crossorigin="anonymous" 
+       controls>
+    Your browser doesn't support HTML5 video.
+  </video>
+
+  </body>
+
+<script>
+
+
+
+function initApp() {
+  // Install built-in polyfills to patch browser incompatibilities.
+  shaka.polyfill.installAll();
+
+  // Check to see if the browser supports the basic APIs Shaka needs.
+  shaka.Player.support().then(function(support) {
+    if (support.supported) {
+      // Everything looks good!
+      initPlayer1();
+      initPlayer2();
+      initPlayer3();
+    } else {
+      // This browser does not have the minimum set of APIs we need.
+      alert('Browser not supported!');
+    }
+  });
+}
+
+function initPlayer1() {
+  var manifestUri = 'http://dev.miljul.in:1935/videochat/p1/manifest.mpd';
+
+  // Create a Player instance.
+  var video = document.getElementById('video1');
+  var player = new shaka.Player(video);
+
+  // Attach player to the window to make it easy to access in the JS console.
+  window.player = player;
+
+  // Listen for error events.
+  player.addEventListener('error', onErrorEvent);
+
+  // Try to load a manifest.
+  player.load(manifestUri).then(function() {
+    // The video has now been loaded!
+  }).catch(onError);
+}
+
+
+function initPlayer2() {
+  var manifestUri = 'http://dev.miljul.in:1935/videochat/p2/manifest.mpd';
+
+  // Create a Player instance.
+  var video = document.getElementById('video2');
+  var player = new shaka.Player(video);
+
+  // Attach player to the window to make it easy to access in the JS console.
+  window.player = player;
+
+  // Listen for error events.
+  player.addEventListener('error', onErrorEvent);
+
+  // Try to load a manifest.
+  player.load(manifestUri).then(function() {
+    // The video has now been loaded!
+  }).catch(onError);
+}
+
+function initPlayer3() {
+  var manifestUri = 'http://dev.miljul.in:1935/videochat/p3/manifest.mpd';
+
+  // Create a Player instance.
+  var video = document.getElementById('video3');
+  var player = new shaka.Player(video);
+
+  // Attach player to the window to make it easy to access in the JS console.
+  window.player = player;
+
+  // Listen for error events.
+  player.addEventListener('error', onErrorEvent);
+
+  // Try to load a manifest.
+  player.load(manifestUri).then(function() {
+    // The video has now been loaded!
+  }).catch(onError);
+}
+
+function onErrorEvent(event) {
+  // Extract the shaka.util.Error object from the event.
+  onError(event.detail);
+}
+
+function onError(error) {
+  // Log the error.
+  console.error(error);
+  console.error('Error code ' + error.code);
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+
+</script>
+
+</html>
+<!--
+http://shaka-player-demo.appspot.com/
+-->
