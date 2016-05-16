@@ -5,17 +5,17 @@ Livestreaming  Broadcasting playback REST Chat transcoders  formats containers p
 
 This repo congtains various projects for live streaming from sources and playback to various platform 
 
->Sources include 
->>Rpi 2 and before
->>Rpi 3 
->>Android
->>iOS
->>WebRTC based 
->>Flash based 
+####Sources include 
+*Rpi 2 and before
+*Rpi 3 
+*Android
+*iOS
+*WebRTC based 
+*Flash based 
 
->Playbacl at destination can be by 
->>WebRTC peer
->>Webrtc endpoint to MCU
->>RTSP for android
->>MPEGDash for web html5 
->>manifestf4m for adobe players
+####Playbacl at destination can be by 
+*WebRTC peer
+*Webrtc endpoint to MCU
+*RTSP for android
+*MPEGDash for web html5 
+*manifestf4m for adobe players
