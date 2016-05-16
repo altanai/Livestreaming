@@ -13,7 +13,7 @@ This repo congtains various projects for live streaming from sources and playbac
 * WebRTC based 
 * Flash based 
 
-####Playbacl at destination can be by 
+####Playback at destination can be by 
 * WebRTC peer
 * Webrtc endpoint to MCU
 * RTSP for android
