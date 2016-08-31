@@ -1,59 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Flash RTMP Player - Video Chat | Wowza Media Systems</title>
-
-    <script language="javascript">AC_FL_RunContent = 0;</script>
-    <script src="AC_RunActiveContent.js" language="javascript"></script>	
-    <!-- Framework CSS -->
-	<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="css/wowza.css" type="text/css" />
-</head>
-<body>
-    <div class="container">
-
-		<!-- EXAMPLE PLAYER: WIDTH of this player should be 636, height will vary depending on the example-->
-        <div class="span-16">
-			<script language="javascript">
-                if (AC_FL_RunContent == 0) {
-                    alert("This page requires AC_RunActiveContent.js.");
-                } else {
-                    AC_FL_RunContent(
-                                     'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0',
-                                     'width', '636',
-                                     'height', '360',
-                                     'src', 'videochat',
-                                     'quality', 'high',
-                                     'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-                                     'align', 'middle',
-                                     'play', 'true',
-                                     'loop', 'true',
-                                     'scale', 'showall',
-                                     'wmode', 'window',
-                                     'devicefont', 'false',
-                                     'id', 'videochat',
-                                     'bgcolor', '#ffffff',
-                                     'name', 'videochat',
-                                     'menu', 'true',
-                                     'allowFullScreen', 'true',
-                                     'allowScriptAccess','sameDomain',
-                                     'movie', 'videochat',
-                                     'salign', ''
-                                     ); //end AC code
-                }
-                </script>
-            <noscript>
-                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="636" height="360" id="videochat" align="middle">
-                    <param name="allowScriptAccess" value="sameDomain" />
-                    <param name="allowFullScreen" value="true" />
-                    <param name="movie" value="videochat.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="videochat.swf" quality="high" bgcolor="#ffffff" width="636" height="360" name="videochat" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-                </object>
-            </noscript>
-		</div>
-
-	</div>
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Jiyo Media Playback</title> 
+        <style type="text/css">
+          body {
+              margin: 0;
+              text-align: center;
+          }
+        </style>
+    </head>
+    <body> 
+      <div id="StrobeMediaPlayback">
+          <p>
+              Loading...
+          </p>
+      </div>
+    </body>
+    <script type="text/javascript" src="lib/detect.js">  </script>  
+    <script type="text/javascript" src="lib/swfobject.js">  </script>  
+    <script type="text/javascript" src="lib/player.js">  </script>  
 </html>
