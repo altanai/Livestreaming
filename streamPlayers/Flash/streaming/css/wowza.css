@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/* CSS Document */
+
+h1 {
+	margin-top:15px;
+	margin-bottom:10px;
+	vertical-align:middle;
+	/*font-weight:bold;
+	font-size:26px;*/
+}
+h2 {
+	font-size:2em;
+	margin-bottom:0;
+}
+.logo {
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.rounded
+{
+	padding:10px;
+	border:2px solid;
+	border-color:#f68428;
+	border-radius:10px;
+	-moz-border-radius:10px; /* Firefox 3.6 and earlier */
+}
+hr {
+  margin-top:10px;
+  color: #f68428;
+  background-color:#f68428;
+  border-color:transparent;
+  height: 3px;
+  margin-bottom:10px;
+}
+hr.heading {
+  border-top:10px;
+  border-color:transparent;
+/*  margin-left:10px;
+  margin-right:10px;*/
+  color: #f68428;
+  width: 950px;
+  height: 5px;
+  margin-bottom:10px;
+}
+hr.minor {
+  margin-top:5px;
+  background-color:transparent;
+  border-color:f68428;
+  border-top:1px dotted;
+  margin-bottom:5px;
+}
+.copyright {
+	color:#666;
+	font-size:small;
+	padding-top:5px;
+}
+note {
+	color:#666;
+	font-size:small;
+}
+
+/* Need to override this from blueprint's CSS */
+tbody tr:nth-child(even) td, tbody tr.even td {
+	background:#fff;
+}
+table.withborder {
+	width:auto;
+	border-width:1px;
+	border-style:solid;
+}
+td.withborder {
+	border-width:1px;
+	border-style:solid;
+}
