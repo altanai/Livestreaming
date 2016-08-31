@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project name="wstest" default="jar" basedir="..">
+	
+	<property name="wowza.home" value="/usr/local/WowzaStreamingEngine"/>
+	<property name="project.home" value="/home/altanaibisht/wowza/livecf"/>
+	<property name="java6.home" value="/usr/lib/jvm/java-7-openjdk-amd64"/>
+
+	<property name="wowza.lib.dir" value="${wowza.home}/lib"/>
+	<property name="project.bin.dir" value="${project.home}/bin"/>
+	<property name="project.src.dir" value="${project.home}/src"/>
+	<property name="project.wsdl.dir" value="${project.home}/wsdl"/>
+
+	<property name="jar.filename" value="livecf.jar"/>
+	
+	<path id="project.class.path">
+		<fileset dir="${wowza.lib.dir}">
+			<include name="**/*.jar"/>
+			<exclude name="${jar.filename}"/>
+		</fileset>
+		<pathelement location="${java6.home}/jre/lib/rt.jar"/>
+		<pathelement location="${java6.home}/jre/lib/jsse.jar"/>
+    		<pathelement location="${java6.home}/lib/tools.jar"/>
+	</path>
+
+	<target name="prepare">
+		<delete dir="${project.bin.dir}/com"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${project.src.dir}" destdir="${project.bin.dir}" debug="on" optimize="on" deprecation="on" verbose="off">
+			<classpath refid="project.class.path"/>
+		</javac>
+	</target>
+
+	<target name="wsgen" depends="compile">
+		<exec executable="${java6.home}/bin/wsgen">
+			<arg value="-verbose"/>
+			<arg value="-cp"/>
+			<arg value="${project.bin.dir};${wowza.lib.dir}/wms-server.jar;${wowza.lib.dir}/wms-core.jar;${wowza.lib.dir}/log4j-1.2.15.jar;${wowza.lib.dir}/json-simple-1.1.1.jar"/>
+			<arg value="-d"/>
+			<arg value="${project.bin.dir}"/>
+			<arg value="-wsdl"/>
+			<arg value="-r"/>
+			<arg value="${project.wsdl.dir}"/>
+		</exec>
+	</target>
+
+	<target name="jar" depends="wsgen">
+		<jar jarfile="${wowza.lib.dir}/${jar.filename}">
+			<fileset dir="${project.bin.dir}"/>
+		</jar>
+	</target>
+	
+</project>

@@ -1,0 +1,1 @@
+{"hostname":"host","enviornment":"production","hostip":"localhost","hostport":"5555","dbip":"localhost","dbname":"un","dbport":3306,"dbuser":"root","dbpass":"altanaimysql","dbdebug":false}

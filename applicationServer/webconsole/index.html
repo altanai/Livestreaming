@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font: 62.5% "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	
+	.xmppMenuStyleClass{
+		background: #9595E3;
+	    float: left;
+	    height: 45%;
+	    width: 5%;
+	    display: block;
+	    z-index: 100;
+	    position: absolute;
+	    font-size: 16px;
+	    color: black;
+	    padding: 10px;
+
+	}
+	.xmppStyleClass{
+	    overflow: scroll;
+	    background: #F5F5F9;
+	    float: left;
+	    margin-left: 7%;
+	    height: 45%;
+	    width: 40%;
+	    display: block;
+	    z-index: 100;
+	    position: absolute;
+	    font-size: 16px;
+	    color: black;
+	    padding: 10px;
+	}
+
+	.wowzaMenuStyleClass{
+		    background: #4CB6EB;
+    float: right;
+    right: 0px;
+    height: 45%;
+    width: 5%;
+    display: block;
+    z-index: 100;
+    position: absolute;
+    font-size: 16px;
+    color: black;
+    padding: 10px;
+
+	}
+	.wowzaStyleClass{
+		background: #E1EFE1;
+	    float: right;
+	    height: 50%;
+	    width: 35%;
+	    display: block;
+	    z-index: 100;
+	    position: absolute;
+	    right: 10px;
+	    margin-right: 5%;
+	    font-size: 12px;
+	}
+
+	.consoleClass{
+	    background: #C8C8C9;
+	    /* float: left; */
+	    height: 20%;
+	    width: 90%;
+	    display: block;
+	    z-index: 100;
+	    position: absolute;
+	    font-size: 12px;
+	    color: black;
+	    padding: 10px;
+	    top: 75%;
+	    overflow: scroll;
+	}
+
+	.tabsStyleClass{
+		top: 80%;
+    	position: absolute;
+    	display: none;
+	}
+	</style>
+</head>
+<body>
+
+<h1>Broadcasting Solution</h1>
+
+<div id="xmppMenu" class="xmppMenuStyleClass">
+	<p onclick="XMPPAllUsers()">All Users</p>
+	<p onclick="XmppUser()">Query a user</p>
+	<p>All MUC</p>
+	<p>Query a MUC</p>
+</div>
+<div id="xmpp" class="xmppStyleClass"></div>
+
+<div id="wowzaMenu" class="wowzaMenuStyleClass">
+	<p onclick="WowzaSettings()">Wowza Settings</p>
+	<p onclick="WowzaStreams()">Live Streams</p>
+</div>
+<div id="wowza" class ="wowzaStyleClass"></div>
+
+<div id="console" class ="consoleClass"></div>
+
+<!-- Tabs -->
+<h2 class="demoHeaders" hidden>..</h2>
+<div id="tabs" class="tabsStyleClass">
+	<ul>
+		<li><a href="#tabs-1">First</a></li>
+		<li><a href="#tabs-2">Second</a></li>
+		<li><a href="#tabs-3">Third</a></li>
+	</ul>
+	<div id="tabs-1">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	</div>
+	
+	<div id="tabs-2">
+		Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.
+	</div>
+	
+	<div id="tabs-3">
+		Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
+	</div>
+</div>
+
+
+<script src="scripts/controller.js"></script>
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+
+
+<script>
+
+	$( "#accordion" ).accordion();
+
+	var availableTags = [
+		"ActionScript",
+		"AppleScript",
+		"Asp",
+		"BASIC",
+		"C",
+		"C++",
+		"Clojure",
+		"COBOL",
+		"ColdFusion",
+		"Erlang",
+		"Fortran",
+		"Groovy",
+		"Haskell",
+		"Java",
+		"JavaScript",
+		"Lisp",
+		"Perl",
+		"PHP",
+		"Python",
+		"Ruby",
+		"Scala",
+		"Scheme"
+	];
+	$( "#autocomplete" ).autocomplete({
+		source: availableTags
+	});
+
+
+
+	$( "#button" ).button();
+	$( "#radioset" ).buttonset();
+
+
+
+	$( "#tabs" ).tabs();
+
+
+
+	$( "#dialog" ).dialog({
+		autoOpen: false,
+		width: 400,
+		buttons: [
+			{
+				text: "Ok",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			{
+				text: "Cancel",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		]
+	});
+
+	// Link to open the dialog
+	$( "#dialog-link" ).click(function( event ) {
+		$( "#dialog" ).dialog( "open" );
+		event.preventDefault();
+	});
+
+
+
+	$( "#datepicker" ).datepicker({
+		inline: true
+	});
+
+
+
+	$( "#slider" ).slider({
+		range: true,
+		values: [ 17, 67 ]
+	});
+
+
+
+	$( "#progressbar" ).progressbar({
+		value: 20
+	});
+
+
+
+	$( "#spinner" ).spinner();
+
+
+
+	$( "#menu" ).menu();
+
+
+
+	$( "#tooltip" ).tooltip();
+
+
+
+	$( "#selectmenu" ).selectmenu();
+
+
+	// Hover states on the static widgets
+	$( "#dialog-link, #icons li" ).hover(
+		function() {
+			$( this ).addClass( "ui-state-hover" );
+		},
+		function() {
+			$( this ).removeClass( "ui-state-hover" );
+		}
+	);
+</script>
+
+<script src="lib/jquery.base64.js"></script>
+
+
+<script>
+function XMPPAllUsers(){
+	getXMPPAllUsers(function showResult(result){
+
+		showConsoleLogs(JSON.stringify(result));
+		document.getElementById("xmpp").innerHTML="";
+
+		for ( i in result.users.user){
+			var node=result.users.user[i];
+
+			for(var key in node.username) {
+			    
+			    if(node.username.hasOwnProperty(key)) {
+
+			    	var usernameidDiv=document.createElement("div");
+					usernameidDiv.innerHTML=node.username[key];
+			        
+			    }
+
+			    if(node.name.hasOwnProperty(key)) {
+
+					var usernameDiv=document.createElement("div");
+					usernameDiv.innerHTML=node.name[key];
+			        
+			    }
+
+			    if(node.email.hasOwnProperty(key)) {
+
+					var useremailDiv=document.createElement("div");
+					useremailDiv.innerHTML=node.email[key];
+			        
+			    }
+			}
+
+			document.getElementById("xmpp").appendChild(usernameidDiv);
+			document.getElementById("xmpp").appendChild(useremailDiv);
+			document.getElementById("xmpp").appendChild(usernameDiv);
+		}
+
+
+	});
+}
+
+function XmppUser(){
+	getXMPPUser("testuser",function showResult(result){
+
+		showConsoleLogs(JSON.stringify(result));
+		document.getElementById("xmpp").innerHTML="";
+
+		var node=result.user;
+
+		for(var key in node.username) {
+		    
+		    if(node.username.hasOwnProperty(key)) {
+
+		    	var usernameidDiv=document.createElement("div");
+				usernameidDiv.innerHTML=node.username[key];
+		        
+		    }
+
+		    if(node.name.hasOwnProperty(key)) {
+
+				var usernameDiv=document.createElement("div");
+				usernameDiv.innerHTML=node.name[key];
+		        
+		    }
+
+		    if(node.email.hasOwnProperty(key)) {
+
+				var useremailDiv=document.createElement("div");
+				useremailDiv.innerHTML=node.email[key];
+		        
+		    }
+		}
+
+		document.getElementById("xmpp").appendChild(usernameidDiv);
+		document.getElementById("xmpp").appendChild(useremailDiv);
+		document.getElementById("xmpp").appendChild(usernameDiv);
+	});
+}
+
+
+function getKeyValue(obj){
+	for(var key in obj) {
+		    
+		if(obj.hasOwnProperty(key)) {
+			return obj[key];    
+		}
+
+	}
+}
+
+function WowzaSettings(){
+	getWowza(function showResult(result){
+
+		showConsoleLogs(JSON.stringify(result));
+		document.getElementById("xmpp").innerHTML="";
+
+		var node=result.WowzaStreamingEngine.VHost;
+
+		console.log(node);
+
+    	var nameDiv=document.createElement("div");
+		nameDiv.innerHTML=getKeyValue(node.Name);
+
+    	var timeRunningDiv=document.createElement("div");
+		timeRunningDiv.innerHTML="TimeRunning : "+ getKeyValue(node.TimeRunning);
+
+    	var connectionsLimitDiv=document.createElement("div");
+		connectionsLimitDiv.innerHTML=" ConnectionsLimit :"+  getKeyValue(node.ConnectionsLimit);
+
+    	var connectionsCurrentDiv=document.createElement("div");
+		connectionsCurrentDiv.innerHTML="ConnectionsCurrent :"+getKeyValue(node.ConnectionsCurrent);		
+
+    	var connectionsTotalDiv=document.createElement("div");
+		connectionsTotalDiv.innerHTML=" ConnectionsTotal :"+ getKeyValue(node.ConnectionsTotal);
+
+		var connectionsTotalAcceptedDiv=document.createElement("div");
+		connectionsTotalAcceptedDiv.innerHTML=" ConnectionsTotalAccepted :"+ getKeyValue(node.ConnectionsTotalAccepted);
+
+		var connectionsTotalRejectedDiv=document.createElement("div");
+		connectionsTotalRejectedDiv.innerHTML=" ConnectionsTotalRejected :"+ getKeyValue(node.ConnectionsTotalRejected);
+
+/*		for(var key in node.username) {
+		    
+		    if(node.username.hasOwnProperty(key)) {
+
+		    	var usernameidDiv=document.createElement("div");
+				usernameidDiv.innerHTML=node.username[key];
+		        
+		    }
+
+		}*/
+
+		document.getElementById("wowza").appendChild(nameDiv);
+		document.getElementById("wowza").appendChild(timeRunningDiv);
+		document.getElementById("wowza").appendChild(connectionsLimitDiv);
+		document.getElementById("wowza").appendChild(connectionsCurrentDiv);
+		document.getElementById("wowza").appendChild(connectionsTotalDiv);
+		document.getElementById("wowza").appendChild(connectionsTotalRejectedDiv);
+	});
+}
+function WowzaStreams(){
+
+}
+
+function showConsoleLogs(data){
+	document.getElementById("console").innerHTML=data;
+}
+
+</script>
+</body>
+</html>
