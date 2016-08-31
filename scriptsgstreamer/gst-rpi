@@ -1,0 +1,41 @@
+
+raspivid --verbose --nopreview --width 640 --height 480 --framerate 15 --bitrate 1000000 --profile baseline --timeout 0 -o - | gst-launch-1.0 -v fdsrc !  h264parse ! rtph264pay config-interval=1 pt=96 ! udpsink host=192.168.0.117 port=8004
+
+
+
+raspivid --verbose --nopreview -hf -vf --width 640 --height 480 --framerate 15 --bitrate 1000000 --profile baseline --timeout 0 -o - | gst-launch-0.10 -v fdsrc ! h264parse ! rtph264pay config-interval=1 pt=96 ! udpsink host=127.0.0.1 port=8004 alsasrc device=plughw:Set ! audioconvert ! audioresample ! opusenc ! rtpopuspay ! udpsink host=127.0.0.1 port=8005
+
+
+
+
+gst-launch-1.0 rpicamsrc bitrate=500000 ! 'video/x-h264,width=640,height=480' ! h264parse ! queue ! rtph264pay config-interval=1 pt=96  ! gdppay ! tcpserversink host=192.168.0.198 port=5004
+
+
+
+
+------------------------------------------------------
+
+
+gst-launch \
+        audiotestsrc ! \
+                audioresample ! audio/x-raw-int,channels=1,rate=16000 ! \
+                opusenc bitrate=20000 ! \
+                        rtpopuspay ! udpsink host=127.0.0.1 port=5002 \
+        videotestsrc ! \
+                video/x-raw-rgb,width=320,height=240,framerate=15/1 ! \
+                videoscale ! videorate ! ffmpegcolorspace ! timeoverlay ! \
+                vp8enc bitrate=256000 speed=2 max-latency=1 error-resilient=true ! \
+                        rtpvp8pay ! udpsink host=127.0.0.1 port=5004
+
+
+
+gst-launch-1.0 \
+        audiotestsrc ! \
+                audioresample ! audio/x-raw-int,channels=1,rate=16000 ! \
+                opusenc bitrate=20000 ! \
+                        rtpopuspay ! udpsink host=127.0.0.1 port=5002 \
+        videotestsrc ! \
+                video/x-raw-rgb,width=320,height=240,framerate=15/1 ! \
+                videoscale ! videorate ! videoconvert ! timeoverlay ! \
+                vp8enc bitrate=256000 speed=2 max-latency=1 error-resilient=true ! \
+                        rtpvp8pay ! udpsink host=127.0.0.1 port=5004

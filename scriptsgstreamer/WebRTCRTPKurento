@@ -1,0 +1,22 @@
+@RequestMapping(value = "/rtpendpoint", method = RequestMethod.POST)
+	private String processRequestrtp(@RequestBody String sdpOffer)
+			throws IOException {
+
+		// Media Logic
+		MediaPipeline pipelinertp = kurento.createMediaPipeline();
+		
+		WebRtcEndpoint webRtcEndpoint = new WebRtcEndpoint.Builder(pipelinertp).build();
+		
+		RtpEndpoint rtpEndpoint = new RtpEndpoint.Builder(pipelinertp).build();
+			 
+		
+		GStreamerFilter filter1 = new GStreamerFilter.Builder(pipelinertp, "videorate max-rate=30").withFilterType(FilterType.VIDEO).build();
+
+		
+		webRtcEndpoint.connect (filter1); 
+		filter1.connect (rtpEndpoint); 
+		
+		// SDP negotiation (offer and answer)
+		String responseSdp = webRtcEndpoint.processOffer(sdpOffer);
+		return responseSdp;
+	}

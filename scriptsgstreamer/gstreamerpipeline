@@ -1,0 +1,35 @@
+	@RequestMapping(value = "/rtpsdp2", method = RequestMethod.POST)
+	private String processRequestrtpsdp2(@RequestBody String sdpOffer)
+			throws IOException, URISyntaxException, InterruptedException {
+
+		//basic media oeration of 1 pipeline and 2 endpoinst
+		MediaPipeline pipeline = kurento.createMediaPipeline();
+		WebRtcEndpoint webRtcEndpoint = new WebRtcEndpoint.Builder(pipeline).build();
+		RtpEndpoint rtpEndpoint = new RtpEndpoint.Builder(pipeline).build();
+		
+		//adding Gstream filters 
+		GStreamerFilter filter1 = new GStreamerFilter.Builder(pipeline, "videorate max-rate=30").withFilterType(FilterType.VIDEO).build();
+		GStreamerFilter filter2 = new GStreamerFilter.Builder(pipeline, "capsfilter caps=video/x-h264,width=1280,height=720,framerate=30/1").withFilterType(FilterType.VIDEO).build();
+		GStreamerFilter filter3 = new GStreamerFilter.Builder(pipeline, "capsfilter caps=audio/x-mpeg,layer=3,rate=48000").withFilterType(FilterType.AUDIO).build();
+
+		
+		// RTP SDP offer and answer 
+
+        rtpEndpoint.processAnswer(requestRTPsdp);       
+		
+		//connecting all point ts to one another 
+		webRtcEndpoint.connect (filter1); 
+		filter1.connect (filter2); 
+		filter2.connect (filter3); 
+		filter3.connect (rtpEndpoint);
+		System.out.println(" connected endpoints ");
+		
+        // write the SDP connector to an external file
+        PrintWriter out = new PrintWriter("/tmp/test.sdp");
+        out.println(requestRTPsdp);
+        out.close();
+           
+        // send the response to front client
+		String responseSdp = webRtcEndpoint.processOffer(sdpOffer);
+		return responseSdp;
+	}		String requestRTPsdp = rtpEndpoint.generateOffer();
