@@ -3,9 +3,9 @@ Contains code for Android and ios Publishers , players on various platforms incl
 # Livestreaming
 Livestreaming  Broadcasting playback REST Chat transcoders  formats containers push notification proxy servers for rest  xml to json etc
 
-![alt Live streaming and broadcast] (images/mediaserverlogo.jpg)
+![alt Live streaming and broadcast](images/MediaServerLogo.jpg)
 
-This repo congtains various projects for live streaming from sources and playback to various platform 
+This repo contains various projects for live streaming from sources and playback to various platform 
 
 ## Sources include 
 * Rpi 2 and before
@@ -21,6 +21,18 @@ This repo congtains various projects for live streaming from sources and playbac
 * RTSP for android
 * MPEGDash for web html5 
 * manifestf4m for adobe players
+
+Live stream from ioS / Android publisher on RTSP
+
+![alt Live streaming and broadcast](images/LiveStreamConfFlow.jpg)
+
+WebRTC p2p conference connected to Live streaming server for broadcast
+
+![alt Live streaming and broadcast](images/single_peer_livestreaming_in_conf.jpg)
+
+WebRTC Live streaming broadcasting Architecture 
+
+![alt Live streaming and broadcast](images/ApproachTreeforWebRTCStreaming.jpg)
 
 ## Extra
 To Learn about Gstreamer + scripts for operation like streaming on various containers FLV/ raw / mp4  on RTMP/RTSP/MPEGDASH, recording Audio/Video on sinks , using Tee;s , Video On demand and using Raspberry Pi as SoC for streaming publisher , read https://telecom.altanai.com/2016/11/08/gstreamer/
