@@ -32,4 +32,6 @@
         // send the response to front client
 		String responseSdp = webRtcEndpoint.processOffer(sdpOffer);
 		return responseSdp;
-	}		String requestRTPsdp = rtpEndpoint.generateOffer();
+	}
+
+	String requestRTPsdp = rtpEndpoint.generateOffer();

@@ -50,6 +50,10 @@ WebRTC Live streaming broadcasting Architecture
 
 Live stream 
 
-![alt Live streaming and broadcast](WebRTCScalableStreamingServer1.jpg)
+![alt Live streaming and broadcast](../images/WebRTCScalableStreamingServer1.jpg)
 
-![alt Live streaming and broadcast](WebRTCScalableStreamingServer2.jpg)  
+![alt Live streaming and broadcast](../images/WebRTCScalableStreamingServer2.jpg)  
+
+![alt Live streaming and broadcast](../images/WebRTCScalableStreamingServer3.jpg) 
+
+![alt Live streaming and broadcast](../images/WebRTCScalableStreamingServer4.jpg)  
