@@ -44,7 +44,7 @@ require([
     'utilsSampleRequest',
     'bootstrap',
     'pathToRegexp'
-], function($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest) {
+], function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest) {
 
     // load google web fonts
     loadGoogleFontCss();
@@ -54,19 +54,19 @@ require([
     //
     // Templates
     //
-    var templateHeader         = Handlebars.compile( $('#template-header').html() );
-    var templateFooter         = Handlebars.compile( $('#template-footer').html() );
-    var templateArticle        = Handlebars.compile( $('#template-article').html() );
-    var templateCompareArticle = Handlebars.compile( $('#template-compare-article').html() );
-    var templateGenerator      = Handlebars.compile( $('#template-generator').html() );
-    var templateProject        = Handlebars.compile( $('#template-project').html() );
-    var templateSections       = Handlebars.compile( $('#template-sections').html() );
-    var templateSidenav        = Handlebars.compile( $('#template-sidenav').html() );
+    var templateHeader = Handlebars.compile($('#template-header').html());
+    var templateFooter = Handlebars.compile($('#template-footer').html());
+    var templateArticle = Handlebars.compile($('#template-article').html());
+    var templateCompareArticle = Handlebars.compile($('#template-compare-article').html());
+    var templateGenerator = Handlebars.compile($('#template-generator').html());
+    var templateProject = Handlebars.compile($('#template-project').html());
+    var templateSections = Handlebars.compile($('#template-sections').html());
+    var templateSidenav = Handlebars.compile($('#template-sidenav').html());
 
     //
     // apiProject defaults
     //
-    if ( ! apiProject.template)
+    if (!apiProject.template)
         apiProject.template = {};
 
     if (apiProject.template.withCompare == null)
@@ -85,14 +85,14 @@ require([
     // Data transform
     //
     // grouped by group
-    var apiByGroup = _.groupBy(api, function(entry) {
+    var apiByGroup = _.groupBy(api, function (entry) {
         return entry.group;
     });
 
     // grouped by group and name
     var apiByGroupAndName = {};
-    $.each(apiByGroup, function(index, entries) {
-        apiByGroupAndName[index] = _.groupBy(entries, function(entry) {
+    $.each(apiByGroup, function (index, entries) {
+        apiByGroupAndName[index] = _.groupBy(entries, function (entry) {
             return entry.name;
         });
     });
@@ -101,14 +101,16 @@ require([
     // sort api within a group by title ASC and custom order
     //
     var newList = [];
-    var umlauts = { 'ä': 'ae', 'ü': 'ue', 'ö': 'oe', 'ß': 'ss' }; // TODO: remove in version 1.0
-    $.each (apiByGroupAndName, function(index, groupEntries) {
+    var umlauts = {'ä': 'ae', 'ü': 'ue', 'ö': 'oe', 'ß': 'ss'}; // TODO: remove in version 1.0
+    $.each(apiByGroupAndName, function (index, groupEntries) {
         // get titles from the first entry of group[].name[] (name has versioning)
         var titles = [];
-        $.each (groupEntries, function(titleName, entries) {
+        $.each(groupEntries, function (titleName, entries) {
             var title = entries[0].title;
-            if(title !== undefined) {
-                title.toLowerCase().replace(/[äöüß]/g, function($0) { return umlauts[$0]; });
+            if (title !== undefined) {
+                title.toLowerCase().replace(/[äöüß]/g, function ($0) {
+                    return umlauts[$0];
+                });
                 titles.push(title + '#~#' + titleName); // '#~#' keep reference to titleName after sorting
             }
         });
@@ -120,10 +122,10 @@ require([
             titles = sortByOrder(titles, apiProject.order, '#~#');
 
         // add single elements to the new list
-        titles.forEach(function(name) {
+        titles.forEach(function (name) {
             var values = name.split('#~#');
             var key = values[1];
-            groupEntries[key].forEach(function(entry) {
+            groupEntries[key].forEach(function (entry) {
                 newList.push(entry);
             });
         });
@@ -139,7 +141,7 @@ require([
     var apiVersions = {};
     apiVersions[apiProject.version] = 1;
 
-    $.each(api, function(index, entry) {
+    $.each(api, function (index, entry) {
         apiGroups[entry.group] = 1;
         apiGroupTitles[entry.group] = entry.groupTitle || entry.group;
         apiVersions[entry.version] = 1;
@@ -162,7 +164,7 @@ require([
     // create Navigationlist
     //
     var nav = [];
-    apiGroups.forEach(function(group) {
+    apiGroups.forEach(function (group) {
         // Mainmenu entry
         nav.push({
             group: group,
@@ -172,7 +174,7 @@ require([
 
         // Submenu
         var oldName = '';
-        api.forEach(function(entry) {
+        api.forEach(function (entry) {
             if (entry.group === group) {
                 if (oldName !== entry.name) {
                     nav.push({
@@ -228,28 +230,28 @@ require([
     var fields = {
         nav: nav
     };
-    $('#sidenav').append( templateSidenav(fields) );
+    $('#sidenav').append(templateSidenav(fields));
 
     // render Generator
-    $('#generator').append( templateGenerator(apiProject) );
+    $('#generator').append(templateGenerator(apiProject));
 
     // render Project
-    _.extend(apiProject, { versions: apiVersions});
-    $('#project').append( templateProject(apiProject) );
+    _.extend(apiProject, {versions: apiVersions});
+    $('#project').append(templateProject(apiProject));
 
     // render apiDoc, header/footer documentation
     if (apiProject.header)
-        $('#header').append( templateHeader(apiProject.header) );
+        $('#header').append(templateHeader(apiProject.header));
 
     if (apiProject.footer)
-        $('#footer').append( templateFooter(apiProject.footer) );
+        $('#footer').append(templateFooter(apiProject.footer));
 
     //
     // Render Sections and Articles
     //
     var articleVersions = {};
     var content = '';
-    apiGroups.forEach(function(groupEntry) {
+    apiGroups.forEach(function (groupEntry) {
         var articles = [];
         var oldName = '';
         var fields = {};
@@ -258,13 +260,13 @@ require([
         articleVersions[groupEntry] = {};
 
         // render all articles of a group
-        api.forEach(function(entry) {
-            if(groupEntry === entry.group) {
+        api.forEach(function (entry) {
+            if (groupEntry === entry.group) {
                 if (oldName !== entry.name) {
                     // determine versions
-                    api.forEach(function(versionEntry) {
+                    api.forEach(function (versionEntry) {
                         if (groupEntry === versionEntry.group && entry.name === versionEntry.name) {
-                            if ( ! articleVersions[entry.group][entry.name])
+                            if (!articleVersions[entry.group][entry.name])
                                 articleVersions[entry.group][entry.name] = [];
 
                             articleVersions[entry.group][entry.name].push(versionEntry.version);
@@ -313,28 +315,28 @@ require([
         };
         content += templateSections(fields);
     });
-    $('#sections').append( content );
+    $('#sections').append(content);
 
     // Bootstrap Scrollspy
-    var $scrollSpy = $(this).scrollspy({ target: '#scrollingNav', offset: 18 });
+    var $scrollSpy = $(this).scrollspy({target: '#scrollingNav', offset: 18});
     $('[data-spy="scroll"]').each(function () {
         $scrollSpy('refresh');
     });
 
     // Content-Scroll on Navigation click.
-    $('.sidenav').find('a').on('click', function(e) {
+    $('.sidenav').find('a').on('click', function (e) {
         e.preventDefault();
         var id = $(this).attr('href');
         if ($(id).length > 0)
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) }, 400);
+            $('html,body').animate({scrollTop: parseInt($(id).offset().top)}, 400);
         window.location.hash = $(this).attr('href');
     });
 
     // Quickjump on Pageload to hash position.
-    if(window.location.hash) {
+    if (window.location.hash) {
         var id = window.location.hash;
         if ($(id).length > 0)
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) }, 0);
+            $('html,body').animate({scrollTop: parseInt($(id).offset().top)}, 0);
     }
 
     /**
@@ -346,8 +348,10 @@ require([
      */
     function _hasTypeInFields(fields) {
         var result = false;
-        $.each(fields, function(name) {
-            if (_.any(fields[name], function(item) { return item.type; }) )
+        $.each(fields, function (name) {
+            if (_.any(fields[name], function (item) {
+                return item.type;
+            }))
                 result = true;
         });
         return result;
@@ -360,7 +364,7 @@ require([
         // bootstrap popover
         $('a[data-toggle=popover]')
             .popover()
-            .click(function(e) {
+            .click(function (e) {
                 e.preventDefault();
             })
         ;
@@ -368,11 +372,11 @@ require([
         var version = $('#version strong').html();
         $('#sidenav li').removeClass('is-new');
         if (apiProject.template.withCompare) {
-            $('#sidenav li[data-version=\'' + version + '\']').each(function(){
+            $('#sidenav li[data-version=\'' + version + '\']').each(function () {
                 var group = $(this).data('group');
                 var name = $(this).data('name');
                 var length = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').length;
-                var index  = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').index($(this));
+                var index = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').index($(this));
                 if (length === 1 || index === (length - 1))
                     $(this).addClass('is-new');
             });
@@ -395,6 +399,7 @@ require([
         // init modules
         sampleRequest.initDynamic();
     }
+
     initDynamic();
 
     // Pre- / Code-Format
@@ -404,7 +409,7 @@ require([
     // HTML-Template specific jQuery-Functions
     //
     // Change Main Version
-    $('#versions li.version a').on('click', function(e) {
+    $('#versions li.version a').on('click', function (e) {
         e.preventDefault();
 
         var selectedVersion = $(this).html();
@@ -415,13 +420,13 @@ require([
         $('#sidenav li:not(.nav-fixed)').addClass('hide');
 
         // show 1st equal or lower Version of each entry
-        $('article[data-version]').each(function(index) {
+        $('article[data-version]').each(function (index) {
             var group = $(this).data('group');
             var name = $(this).data('name');
             var version = $(this).data('version');
 
             if (version <= selectedVersion) {
-                if($('article[data-group=\'' + group + '\'][data-name=\'' + name + '\']:visible').length === 0) {
+                if ($('article[data-group=\'' + group + '\'][data-name=\'' + name + '\']:visible').length === 0) {
                     // enable Article
                     $('article[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + version + '\']').removeClass('hide');
                     // enable Navigation
@@ -432,7 +437,7 @@ require([
         });
 
         initDynamic();
-        return;
+
     });
 
     // compare all article with their predecessor
@@ -442,7 +447,7 @@ require([
     $('article .versions li.version a').on('click', changeVersionCompareTo);
 
     // compare url-parameter
-    $.urlParam = function(name) {
+    $.urlParam = function (name) {
         var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
         return (results && results[1]) ? results[1] : null;
     };
@@ -453,7 +458,7 @@ require([
 
         if (window.location.hash) {
             var id = window.location.hash;
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) - 18 }, 0);
+            $('html,body').animate({scrollTop: parseInt($(id).offset().top) - 18}, 0);
         }
     }
 
@@ -478,7 +483,7 @@ require([
         if (compareVersion === selectedVersion)
             return;
 
-        if ( ! compareVersion && version == selectedVersion)
+        if (!compareVersion && version == selectedVersion)
             return;
 
         if (compareVersion && articleVersions[group][name][0] === selectedVersion || version === selectedVersion) {
@@ -489,7 +494,7 @@ require([
 
             var sourceEntry = {};
             var compareEntry = {};
-            $.each(apiByGroupAndName[group][name], function(index, entry) {
+            $.each(apiByGroupAndName[group][name], function (index, entry) {
                 if (entry.version === version)
                     sourceEntry = entry;
                 if (entry.version === selectedVersion)
@@ -558,17 +563,17 @@ require([
      */
     function changeAllVersionCompareTo(e) {
         e.preventDefault();
-        $('article:visible .versions').each(function(){
+        $('article:visible .versions').each(function () {
             var $root = $(this).parents('article');
             var currentVersion = $root.data('version');
             var $foundElement = null;
-            $(this).find('li.version a').each(function() {
+            $(this).find('li.version a').each(function () {
                 var selectVersion = $(this).html();
-                if (selectVersion < currentVersion && ! $foundElement)
+                if (selectVersion < currentVersion && !$foundElement)
                     $foundElement = $(this);
             });
 
-            if($foundElement)
+            if ($foundElement)
                 $foundElement.trigger('click');
         });
         initDynamic();
@@ -607,7 +612,7 @@ require([
      */
     function renderArticle(group, name, version) {
         var entry = {};
-        $.each(apiByGroupAndName[group][name], function(index, currentEntry) {
+        $.each(apiByGroupAndName[group][name], function (index, currentEntry) {
             if (currentEntry.version === version)
                 entry = currentEntry;
         });
@@ -637,7 +642,7 @@ require([
         $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + version + '\']').removeClass('has-modifications');
 
         $root.remove();
-        return;
+
     }
 
     /**
@@ -666,22 +671,22 @@ require([
      */
     function sortByOrder(elements, order, splitBy) {
         var results = [];
-        order.forEach (function(name) {
+        order.forEach(function (name) {
             if (splitBy)
-                elements.forEach (function(element) {
+                elements.forEach(function (element) {
                     var parts = element.split(splitBy);
                     var key = parts[1]; // reference keep for sorting
                     if (key == name)
                         results.push(element);
                 });
             else
-                elements.forEach (function(key) {
+                elements.forEach(function (key) {
                     if (key == name)
                         results.push(name);
                 });
         });
         // Append all other entries that ar not defined in order
-        elements.forEach(function(element) {
+        elements.forEach(function (element) {
             if (results.indexOf(element) === -1)
                 results.push(element);
         });
